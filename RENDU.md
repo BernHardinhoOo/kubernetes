@@ -59,7 +59,8 @@
 ## Bonus (facultatif)
 
 14. Bonus réalisés et remarques :
-    >
+    >A)le site reste accessible. Contrairement au port-forward, qui est lié à un pod précis, Traefik s'adresse au Service, qui route vers les pods encore disponibles.
+    B)
 
 ---
 
