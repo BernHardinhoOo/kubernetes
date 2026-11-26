@@ -33,7 +33,7 @@
 7. Quelle différence entre `kubectl create` et `kubectl apply` ?
    >_create est impératif : il crée une ressource et échoue si elle existe déjà. apply est déclaratif : je décris l'état désiré dans un fichier YAML, et Kubernetes crée la ressource si elle n'existe pas ou la met à jour si elle diffère. On peut le rejouer sans erreur, et les fichiers sont versionnables dans Git_
 8. À quoi sert le `selector` d'un Service ? Que se passe-t-il s'il ne correspond à aucun pod ?
-   >
+   >_Il désigne, par leurs labels, les pods vers lesquels le Service envoie le trafic. S'il ne correspond à aucun pod, le Service est créé sans erreur mais n'a aucun endpoint (`kubectl get endpoints` est vide) : il n'est joignable vers rien et les requêtes échouent_
 
 ## Exercice 5 — Scaling & mises à jour
 
