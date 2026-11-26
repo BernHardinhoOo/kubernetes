@@ -38,20 +38,23 @@
 ## Exercice 5 — Scaling & mises à jour
 
 9. Sur quels nœuds se trouvent vos 3 réplicas ? Collez la sortie de `kubectl get pods -l app=site -o wide`.
+   ```NAME                    READY   STATUS    RESTARTS   AGE     IP          NODE               NOMINATED NODE   READINESS GATES
+      site-5cc664db9c-5crp5   1/1     Running   0          3m42s   10.42.1.6   k3d-lab-server-0   <none>           <none>
+      site-5cc664db9c-hs42r   1/1     Running   0          3m56s   10.42.2.7   k3d-lab-agent-0    <none>           <none>
+      site-5cc664db9c-pssxk   1/1     Running   0          3m51s   10.42.0.8   k3d-lab-agent-1    <none>           <none>
    ```
-
-   ```
+   _Les 3 réplicas sont répartis sur les 3 nœuds (agent-0, agent-1 et server-0)_
 10. Avec l'image `nginx:9.99`, quel statut avait le pod ? Quelle commande vous a donné la cause ?
-    >
+    >_Le nouveau pod était en `ImagePullBackOff`. `kubectl describe pod <nom>` section Events m'a donné la cause, le tag `nginx:9.99` n'existe pas, l'image est introuvable._
 11. Pendant la panne, le site restait-il accessible ? Pourquoi ?
-    >
+    >_Oui. Les 3 anciens pods sont restés `Running`. Le rolling update ne supprime un ancien pod qu'une fois le nouveau prêt, et le pod cassé ne l'a jamais été. Le Service a donc continué d'envoyer le trafic aux anciens pods_
 
 ## Exercice 6 — Portainer & Mario
 
 12. URL publique de votre Mario :
-    >
+    >https://glowing-guide-jr94vrv6x7r6h5j6w-8585.app.github.dev/
 13. Retrouvez le Deployment `mario` en ligne de commande. Portainer et `kubectl` parlent-ils au même composant ? Lequel ?
-    >
+    >_Oui, `kubectl get deploy mario` le retrouve. Portainer et `kubectl` passent tous deux par l'API Server du control plane, le point d'entrée unique du cluster. Le Deployment est le même type d'objet, quelle que soit la façon dont il a été créé_
 
 ## Bonus (facultatif)
 
